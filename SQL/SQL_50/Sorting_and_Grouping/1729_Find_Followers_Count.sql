@@ -1,5 +1,0 @@
-SELECT
-    user_id,
-    Count(user_id) AS followers_count
-FROM Followers
-GROUP BY user_id
