@@ -1,3 +1,20 @@
+/*
+===============================================================================
+DDL Script: Create Silver Tables
+===============================================================================
+Purpose:
+    Creates the database tables for the Silver layer. These tables are 
+    designed to hold cleansed, standardized, and integrated data from the 
+    Bronze layer.
+
+Key Actions:
+    - Drops existing tables if they exist (Idempotent execution).
+    - Defines explicit data types for CRM and ERP target tables.
+    - Adds a default audit column (`dwh_create_date`) to all tables to 
+      track when records are inserted into the data warehouse.
+===============================================================================
+*/
+
 
 IF OBJECT_ID ('silver.crm_cust_info' , 'U') IS NOT NULL
 	DROP TABLE silver.crm_cust_info;
@@ -17,12 +34,13 @@ IF OBJECT_ID ('silver.crm_prd_info' , 'U') IS NOT NULL
 	DROP TABLE silver.crm_prd_info;
 CREATE TABLE silver.crm_prd_info(
 prd_id INT,
+cat_id VARCHAR(50),
 prd_key VARCHAR(50),
 prd_nm VARCHAR(50),
 prd_cost INT,
 prd_line VARCHAR(50),
-prd_start_dt DATETIME,
-prd_end_dt DATETIME,
+prd_start_dt DATE,
+prd_end_dt DATE,
 dwh_create_date DATETIME2 DEFAULT GETDATE(),
 );
 
